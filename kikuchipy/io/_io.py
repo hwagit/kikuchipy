@@ -27,12 +27,12 @@ from hyperspy.signal import BaseSignal
 import numpy as np
 
 import kikuchipy.signals
-from kikuchipy.io.plugins import h5ebsd, nordif
+from kikuchipy.io.plugins import h5ebsd, nordif, bruker_bcf
 from kikuchipy.util.io import _get_input_bool
 
 _logger = logging.getLogger(__name__)
 
-plugins = [hspy, h5ebsd, nordif]
+plugins = [bruker_bcf, hspy, h5ebsd, nordif]
 
 default_write_ext = set()
 for plugin in plugins:

@@ -36,12 +36,15 @@ default_extension = 0
 writes = None
 
 
-def file_reader(filename):
-    return
+def file_reader(filename, lazy=False, **kwargs):
 
+    sfs = SFS_reader(filename)
 
-class BCFReaderEBSD(SFS_reader):
+    header_file = sfs.get_file("EBSDData")
 
-    def __init__(self, filename):
-        SFS_reader.__init__(self, filename)
-        header_file = self.get_file('EBSDData')
+    # Version
+    version = header_file.get_file("Version")
+
+    pattern_data = sfs.get_file("EBSDData/FrameData")
+
+    return sfs

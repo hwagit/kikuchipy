@@ -16,4 +16,4 @@
 # You should have received a copy of the GNU General Public License
 # along with KikuchiPy. If not, see <http://www.gnu.org/licenses/>.
 
-from kikuchipy.io.plugins import h5ebsd, nordif
+from kikuchipy.io.plugins import h5ebsd, nordif, bruker_bcf

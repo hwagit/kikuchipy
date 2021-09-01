@@ -12,7 +12,7 @@ best to adhere to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 Contributors to each release are listed in alphabetical order by first name. List
 entries are sorted in descending chronological order.
 
-0.5.1rc7 (2021-09-01)
+0.5.1rc9 (2021-09-01)
 =====================
 
 Contributors

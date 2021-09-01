@@ -44,5 +44,5 @@ jobs:
         tag_name: v${{ env.BRANCH_VERSION }}
         release_name: kikuchipy ${{ env.BRANCH_VERSION }}
         commitish: main
-        body_path: .github/workflows/release_part_in_changelog.md
+        body_path: release_part_in_changelog.md
         prerelease: false

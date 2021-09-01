@@ -16,25 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with kikuchipy. If not, see <http://www.gnu.org/licenses/>.
 
-import subprocess
+import re
+
+from outdated import check_outdated
 
 
-command_diff = "git diff ../../kikuchipy/release.py".split()
-process = subprocess.Popen(command_diff, stdout=subprocess.PIPE)
-git_diff = process.stdout.read().decode().split("\n")
+with open("../../kikuchipy/release.py") as fid:
+    for line in fid:
+        if line.startswith("version"):
+            branch_version = line.strip().split(" = ")[-1][1:-1]
 
-old_version = None
-new_version = None
-for line in git_diff:
-    if line.startswith("-version"):
-        old_version = line.replace("'", "").replace('"', "").split()[-1]
-    elif line.startswith("+version"):
-        new_version = line.replace("'", "").replace('"', "").split()[-1]
-
-if old_version is not None and new_version is not None and new_version != old_version:
+# Within a try/except because we don't want to throw the error if a new
+# tagged release draft is to be made, we just want to know if the branch
+# version is different (hopefully always newer if different) from the
+# PyPI version
+try:
+    make_release, pypi_version = check_outdated("kikuchipy", branch_version)
+except ValueError as e:
+    pypi_version = re.findall(r"\s([\d.]+)", e.args[0])[1]
     make_release = True
-else:
-    make_release = False
 
 if make_release:
     with open("../../doc/changelog.rst", mode="r") as f:
@@ -42,9 +42,9 @@ if make_release:
         changelog_start = 0
         changelog_end = 0
         for i, line in enumerate(content):
-            if line.startswith(new_version):
+            if line.startswith(branch_version):
                 changelog_start = i + 3
-            elif line.startswith(old_version):
+            elif line.startswith(pypi_version):
                 changelog_end = i - 1
     with open("release_part_in_changelog.rst", mode="w") as f:
         f.write(
@@ -59,5 +59,5 @@ if make_release:
 # These three prints are collected by a bash script using `eval` and
 # passed to GitHub Action environment variables to be used in a workflow
 print(make_release)
-print(old_version)
-print(new_version)
+print(pypi_version)
+print(branch_version)

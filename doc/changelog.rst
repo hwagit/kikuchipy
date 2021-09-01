@@ -12,6 +12,17 @@ best to adhere to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 Contributors to each release are listed in alphabetical order by first name. List
 entries are sorted in descending chronological order.
 
+0.5.1rc2 (2021-09-01)
+=====================
+
+Contributors
+------------
+- Håkon Wiik Ånes
+
+Added
+-----
+- Test (`#433 <https://github.com/pyxem/kikuchipy/pull/433>`_)
+
 0.5.1 (2021-09-01)
 ==================
 

@@ -61,3 +61,5 @@ if make_release:
 print(make_release)
 print(old_version)
 print(new_version)
+
+print(git_diff)
